@@ -160,17 +160,17 @@ int matrixMultiply(int argc, char **argv, int block_size, dim3 &dimsA, dim3 &dim
     }
 
     // Execute the kernel
-    int nIter = 1;
+    int nIter = 300;
 
     for (int j = 0; j < nIter; j++)
     {
         if (block_size == 16)
         {
-            matrixMulCUDA<16><<< grid, threads >>>(d_C, d_A, d_B, dimsA.x);
+            matrixMulCUDA<<< grid, threads >>>(d_C, d_A, d_B, dimsA.x);
         }
         else
         {
-            matrixMulCUDA<32><<< grid, threads >>>(d_C, d_A, d_B, dimsA.x);
+            matrixMulCUDA<<< grid, threads >>>(d_C, d_A, d_B, dimsA.x);
         }
     }
 
